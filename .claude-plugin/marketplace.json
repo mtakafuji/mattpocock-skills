@@ -1,0 +1,30 @@
+{
+  "name": "mattpocock",
+  "owner": {
+    "name": "myamafuj"
+  },
+  "description": "Matt Pocock's agent skills for real engineering — not vibe coding.",
+  "plugins": [
+    {
+      "name": "mattpocock-skills",
+      "source": "./",
+      "description": "Matt Pocock's agent skills for real engineering — grilling, TDD, triage, codebase design and more.",
+      "author": {
+        "name": "Matt Pocock"
+      },
+      "homepage": "https://github.com/myamafuj/mattpocock-skills",
+      "repository": "https://github.com/myamafuj/mattpocock-skills",
+      "license": "MIT",
+      "category": "engineering",
+      "keywords": [
+        "skills",
+        "engineering",
+        "tdd",
+        "triage",
+        "domain-modeling",
+        "claude-code",
+        "agents"
+      ]
+    }
+  ]
+}
