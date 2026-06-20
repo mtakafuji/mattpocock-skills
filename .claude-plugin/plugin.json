@@ -1,5 +1,13 @@
 {
   "name": "mattpocock-skills",
+  "version": "1.0.1",
+  "description": "Matt Pocock's agent skills for real engineering — not vibe coding.",
+  "author": {
+    "name": "Matt Pocock"
+  },
+  "homepage": "https://github.com/myamafuj/mattpocock-skills",
+  "repository": "https://github.com/myamafuj/mattpocock-skills",
+  "license": "MIT",
   "skills": [
     "./skills/engineering/ask-matt",
     "./skills/engineering/diagnosing-bugs",
