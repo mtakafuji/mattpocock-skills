@@ -39,6 +39,24 @@ npx skills@latest add mattpocock/skills
 
 4. Bam - you're ready to go.
 
+## Install as a Claude Code plugin
+
+These skills are also published as a [Claude Code plugin marketplace](https://code.claude.com/docs/en/plugin-marketplaces). To install them natively:
+
+1. Add the marketplace:
+
+```bash
+/plugin marketplace add myamafuj/mattpocock-skills
+```
+
+2. Install the plugin:
+
+```bash
+/plugin install mattpocock-skills@mattpocock
+```
+
+3. Then run `/setup-matt-pocock-skills` as above to configure the repo.
+
 ## Why These Skills Exist
 
 I built these skills as a way to fix common failure modes I see with Claude Code, Codex, and other coding agents.
