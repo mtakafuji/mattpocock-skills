@@ -25,11 +25,17 @@ const pluginName = "mattpocock-skills";
 const pluginRoot = join(root, "plugins", pluginName);
 const generatedSkillsRoot = join(pluginRoot, "skills");
 
+const ACRONYMS = new Set(["prd", "tdd", "adr"]);
+
 function toDisplayName(name) {
   return name
     .split("-")
     .filter(Boolean)
-    .map((part) => part[0].toUpperCase() + part.slice(1))
+    .map((part) =>
+      ACRONYMS.has(part)
+        ? part.toUpperCase()
+        : part[0].toUpperCase() + part.slice(1),
+    )
     .join(" ");
 }
 
