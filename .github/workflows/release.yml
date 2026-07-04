@@ -10,6 +10,9 @@ concurrency: ${{ github.workflow }}-${{ github.ref }}
 jobs:
   release:
     name: Version
+    # バージョン管理は upstream 本体の changesets に任せる。
+    # フォーク側で動かすと独自にバージョンが進み upstream とずれるため無効化。
+    if: github.repository == 'mattpocock/skills'
     runs-on: ubuntu-latest
     permissions:
       contents: write

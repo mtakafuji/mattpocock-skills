@@ -1,0 +1,78 @@
+name: Sync upstream
+
+# upstream (mattpocock/skills) の更新を定期的に取り込み、
+# マーケットプレイス側のバージョン・プラグイン成果物を追随させる。
+# バージョンは upstream の package.json（changesets が bump）をそのままミラーする。
+
+on:
+  schedule:
+    - cron: "0 21 * * *" # 毎日 06:00 JST
+  workflow_dispatch:
+
+concurrency: ${{ github.workflow }}
+
+jobs:
+  sync:
+    # フォーク側でのみ動かす（upstream 本体では不要）
+    if: github.repository != 'mattpocock/skills'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Git ユーザー設定
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: upstream を取得
+        id: fetch
+        run: |
+          git remote add upstream https://github.com/mattpocock/skills.git
+          git fetch upstream main
+          echo "behind=$(git rev-list --count HEAD..upstream/main)" >> "$GITHUB_OUTPUT"
+
+      - name: upstream をマージ
+        id: merge
+        if: steps.fetch.outputs.behind != '0'
+        run: |
+          if git merge --no-edit upstream/main; then
+            echo "conflict=false" >> "$GITHUB_OUTPUT"
+          else
+            git merge --abort
+            echo "conflict=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Node.js セットアップ
+        if: steps.merge.outputs.conflict == 'false'
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: プラグイン成果物を再生成して push
+        if: steps.merge.outputs.conflict == 'false'
+        run: |
+          node scripts/sync-plugin-version.mjs
+          node scripts/sync-codex-plugin.mjs
+          git add -A
+          git diff --cached --quiet || git commit -m "chore: sync plugin artifacts with upstream"
+          git push origin main
+
+      - name: コンフリクト時は解消用 PR を作成
+        if: steps.merge.outputs.conflict == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git checkout -B sync/upstream upstream/main
+          git push -f origin sync/upstream
+          if [ -z "$(gh pr list --head sync/upstream --state open --json number --jq '.[].number')" ]; then
+            gh pr create --base main --head sync/upstream \
+              --title "chore: sync with upstream（コンフリクト解消が必要）" \
+              --body "$(printf 'upstream (mattpocock/skills) の自動マージでコンフリクトが発生しました。\n\n手元で解消したうえで、マージ前に以下を実行して成果物を再生成してください:\n\n```sh\nnode scripts/sync-plugin-version.mjs\nnode scripts/sync-codex-plugin.mjs\n```')"
+          fi
