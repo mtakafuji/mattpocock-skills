@@ -1,6 +1,0 @@
-interface:
-  display_name: "Prototype"
-  short_description: "Build a throwaway prototype to flesh out a design — a runnable terminal app for state/business-logic questions, or se..."
-  default_prompt: "Use prototype."
-policy:
-  allow_implicit_invocation: false

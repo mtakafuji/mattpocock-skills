@@ -1,6 +1,6 @@
 interface:
   display_name: "Ask Matt"
-  short_description: "Ask which skill or flow fits your situation. A router over the user-invoked skills in this repo."
+  short_description: "Ask which skill or flow fits your situation. A router over the skills in this repo."
   default_prompt: "Use ask-matt."
 policy:
   allow_implicit_invocation: false
