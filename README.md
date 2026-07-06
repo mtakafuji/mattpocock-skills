@@ -57,6 +57,16 @@ These skills are also published as a [Claude Code plugin marketplace](https://co
 
 3. Then run `/setup-matt-pocock-skills` as above to configure the repo.
 
+## Install in Codex
+
+These skills are also published as a Codex plugin marketplace. To install them from this repo:
+
+```bash
+codex plugin marketplace add myamafuj/mattpocock-skills
+```
+
+Then restart Codex, open the plugin directory, choose **Matt Pocock Skills**, and install the `mattpocock-skills` plugin.
+
 ## Why These Skills Exist
 
 I built these skills as a way to fix common failure modes I see with Claude Code, Codex, and other coding agents.
