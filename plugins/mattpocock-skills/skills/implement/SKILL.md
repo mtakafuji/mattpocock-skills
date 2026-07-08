@@ -1,9 +1,9 @@
 ---
 name: implement
-description: "Implement a piece of work based on a PRD or set of issues."
+description: "Implement a piece of work based on a spec or set of tickets."
 ---
 
-Implement the work described by the user in the PRD or issues.
+Implement the work described by the user in the spec or tickets.
 
 Use /tdd where possible, at pre-agreed seams.
 

@@ -8,7 +8,7 @@
     {
       "name": "mattpocock-skills",
       "source": "./",
-      "version": "1.0.1",
+      "version": "1.1.0",
       "description": "Matt Pocock's agent skills for real engineering — grilling, TDD, triage, codebase design and more.",
       "author": {
         "name": "Matt Pocock"

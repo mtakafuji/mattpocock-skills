@@ -1,6 +1,6 @@
 interface:
   display_name: "Implement"
-  short_description: "Implement a piece of work based on a PRD or set of issues."
+  short_description: "Implement a piece of work based on a spec or set of tickets."
   default_prompt: "Use implement."
 policy:
   allow_implicit_invocation: false
